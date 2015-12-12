@@ -4,5 +4,5 @@ DOCKER_FILE_NAME=Dockerfile-$IMAGE_NAME
 
 cp Dockerfile-common $DOCKER_FILE_NAME
 
-docker build -t $IMAGE_NAME -f $DOCKER_FILE_NAME .
-echo "$IMAGE_NAME successfully built!"
+docker build -t svr93/$IMAGE_NAME -f $DOCKER_FILE_NAME .
+echo "svr93/$IMAGE_NAME successfully built!"
