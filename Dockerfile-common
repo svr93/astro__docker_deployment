@@ -8,6 +8,10 @@ RUN dnf -y install tar
 RUN dnf -y install xz
 RUN dnf -y install net-tools
 
+RUN dnf -y install postgresql-server postgresql-contrib && \
+    su postgres -c "initdb -D /var/lib/pgsql/data" && \
+    echo "su postgres -c 'pg_ctl -D /var/lib/pgsql/data start'" >> /root/.bashrc
+
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash && \
     source ~/.bashrc && \
     nvm install v5.2 && nvm alias default node
