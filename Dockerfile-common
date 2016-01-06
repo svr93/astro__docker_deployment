@@ -7,6 +7,8 @@ RUN dnf -y install which
 RUN dnf -y install tar
 RUN dnf -y install xz
 RUN dnf -y install net-tools
+RUN dnf -y install wget
+RUN dnf -y install traceroute
 
 RUN dnf -y install postgresql-server postgresql-contrib && \
     su postgres -c "initdb -D /var/lib/pgsql/data" && \
