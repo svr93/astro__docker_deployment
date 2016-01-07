@@ -10,6 +10,8 @@ RUN dnf -y install net-tools
 RUN dnf -y install wget
 RUN dnf -y install traceroute
 
+RUN dnf -y install java-1.?.0-openjdk
+
 RUN dnf -y install postgresql-server postgresql-contrib && \
     su postgres -c "initdb -D /var/lib/pgsql/data" && \
     echo "su postgres -c 'pg_ctl -D /var/lib/pgsql/data start'" >> /root/.bashrc
