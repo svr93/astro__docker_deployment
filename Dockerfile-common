@@ -9,7 +9,11 @@ RUN dnf -y install xz
 RUN dnf -y install net-tools
 RUN dnf -y install wget
 RUN dnf -y install traceroute
+RUN dnf -y install git
+RUN dnf -y install make
 
+RUN dnf -y install gcc gcc-c++
+RUN dnf -y install python
 RUN dnf -y install java-1.?.0-openjdk
 
 RUN dnf -y install postgresql-server postgresql-contrib && \
@@ -18,4 +22,5 @@ RUN dnf -y install postgresql-server postgresql-contrib && \
 
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash && \
     source ~/.bashrc && \
-    nvm install stable && nvm alias default node
+    nvm install stable && nvm alias default node && \
+    cd home && \
