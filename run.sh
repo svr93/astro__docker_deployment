@@ -1,14 +1,16 @@
 #!/bin/bash
 
 updateCmd=true
-detached=false
+detachedMode=false
 
-while [[ "$1" != "" ]]; do
+while [[ $1 != "" ]]; do
+
     case $1 in
+
         --updateGit )               updateCmd=". update.sh"
                                     ;;
 
-        --detached )                detached=true
+        --detachedMode )            detachedMode=true
                                     ;;
 
         * )                         echo "error: bad param"
@@ -17,8 +19,17 @@ while [[ "$1" != "" ]]; do
     shift
 done
 
-docker run -it -p 8011:8011 -d=$detached svr93/astro.control-center bash -c \
+exchangeData="$(cat exchange-data.json)"
+
+CONTROL_CENTER_PORT=$(echo $exchangeData | \
+    grep CONTROL_CENTER_PORT | \
+    cut -d "}" -f1 | \
+    cut -d "," -f1 | \
+    cut -d ":" -f2)
+
+docker run -it -p $(echo $CONTROL_CENTER_PORT):$(echo $CONTROL_CENTER_PORT) \
+-d=$detachedMode svr93/astro.control-center bash -c \
 "source ~/.bashrc && \
 cd home/astro__server__control_center && \
 $updateCmd && \
-node server.js --exchangeData='$(cat exchangeData.json)'"
+bash start.sh --exchangeData '$exchangeData'"
